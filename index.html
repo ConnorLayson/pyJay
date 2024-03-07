@@ -31,24 +31,33 @@
         <hr>
         <hr>
         <div>
-            <h3>pyBird.map</h3>
+            <a id="map_init"><h3>pyBird.map()</h3></a>
             <h5>Required arguments:</h5>
-            <p>pyBird.map(map_info)</p>
+            <p> pyBird.map(map_info)</p>
             <h5>Optional arguments:</h5>
             <p>pyBird.map(map_info,collider,map_x,map_y,extension)</p>
             <h5>Syntax:</h5>
             <p>
                 <b>map_info: (str): </b>
-                <br>A path to a ‘.txt’ file containing the information for loading the map
+                <br>- A path to a ‘.txt’ file containing the information for loading the map
                 <br><b>collider: (bool): </b>
-                <br>Allows you to get hitboxes from the map tiles (default False)
+                <br>- Allows you to get hitboxes from the map tiles (default False)
                 <br><b>map_x: (int): </b>
-                <br>Starting position of the map on the x-axis (default 0)
+                <br>- Starting position of the map on the x-axis (default 0)
                 <br><b>map_y: (int): </b>
-                <br>Starting position of the map on the y-axis (default 0)
+                <br>- Starting position of the map on the y-axis (default 0)
                 <br><b>extension: (str): </b>
-                <br>The extension of your images (default ‘.png’)
+                <br>- The extension of your images (default ‘.png’)
             </p>
+            <hr>
+            <h3>pyBird.map() functions</h3>
+            <br>
+            <h5>display(surface)</h5>
+            <p>Displays the map to the surface you put into the surface argument. Does not display if you set collider to True.</p>
+            <h5>move(x,y)</h5>
+            <p>Moves the entire map by the number of pixels specified in the x-axis and the y-axis</p>
+            <h5>collide()</h5>
+            <p>Returns a list of rects that you can use as hitboxes to collide with. Only works when collider is set to True</p>
         </div>
     </body>
 </html>

@@ -9,10 +9,16 @@
             h3 {
                 color: dark-blue;
             }
+	    pre {
+		background-color: white;
+		border-color: black;
+		border-style: solid;
+		border-width: 1px;
+	    }
         </style>
     </head>
     <body>
-        <h1>Welcome to PyBird!</h1>
+        <h1>Welcome to PyJay!</h1>
         <hr>
         <div>
             <h3>Table of Contents</h3>
@@ -31,11 +37,11 @@
         <hr>
         <hr>
         <div>
-            <a id="map_init"><h3>pyBird.map()</h3></a>
+            <a id="map_init"><h3>pyJay.map()</h3></a>
             <h5>Required arguments:</h5>
             <p> pyBird.map(map_info)</p>
             <h5>Optional arguments:</h5>
-            <p>pyBird.map(map_info,collider,map_x,map_y,extension)</p>
+            <p>pyJay.map(map_info,collider,map_x,map_y,extension)</p>
             <h5>Syntax:</h5>
             <p>
                 <b>map_info: (str): </b>
@@ -50,14 +56,39 @@
                 <br>- The extension of your images (default ‘.png’)
             </p>
             <hr>
-            <h3>pyBird.map() functions</h3>
-            <br>
+            <a id="map_fun"><h3>pyJay.map() functions</h3></a>
             <h5>display(surface)</h5>
             <p>Displays the map to the surface you put into the surface argument. Does not display if you set collider to True.</p>
             <h5>move(x,y)</h5>
             <p>Moves the entire map by the number of pixels specified in the x-axis and the y-axis</p>
             <h5>collide()</h5>
             <p>Returns a list of rects that you can use as hitboxes to collide with. Only works when collider is set to True</p>
+	    <hr>
+	    <a id="map_other"><h3>What else to do</h3></a>
+	    <p>Each map will need a map data file. This will be a ‘.txt’ file and contain four (4) lines of text. The first two lines are paths (str) and the last two are numbers (int).</p>
+	    <pre>
+		path/to/image_set/folder
+		path/to/map_layout/file.txt
+		tile_size
+		scale
+	    </pre>
+	    <p>
+                <b>path/to/image_set/folder</b>
+		<br>- This will be a path to a folder containing all the images you need for that map.
+		<br><b>path/to/map_layout/file</b>
+		<br>- This will be a path to the layout of your map. This file needs to follow a few rules as well.
+		<br><b>map_layout rules:</b>
+		<br>- Each character corresponds to an image name in the path/to/image_set/folder (ex: ‘1’ on the map will display ‘1.png’)
+		<br>- Each tile may only correspond to ONE character in the map_layout
+		<br>- You cannot use the 0 character. 
+		<br>- The 0 character will display a blank tile.
+		<br><b>tile_size</b>
+		<br>- This is a number (int) that represents the size of the image. (ex: A 32x32 image will be a value of 32 in this line)
+		<br><b>scale</b>
+		<br>- This will scale all tiles by multiplying the image size by this amount (ex: 1 will keep it the same size, and 2 will double the size)
+            </p>
+	    <p>Each map will also need a <em>map_layout</em> file. This will be a ‘.txt’ file and be the “key” that pyJay uses. Make each number correspond to an image tile. </p>
+	    <p>When collider is set to True, every tile that doesn’t have a value of 0 will create a hitbox. </p>
         </div>
     </body>
 </html>

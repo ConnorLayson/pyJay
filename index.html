@@ -1,24 +1,40 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>PyBird Docs</title>
+        <title>PyJay Docs</title>
+        <link rel="icon" type="image/x-icon" href="PyJay logo.png">
         <style>
             body {
                 background-color: #b3dbc3;
             }
-            h3 {
-                color: dark-blue;
+            h1 {
+                font-family: 'Brush Script MT', cursive;
+                color: blue;
             }
-	    pre {
-		background-color: white;
-		border-color: black;
-		border-style: solid;
-		border-width: 1px;
-	    }
+            h3 {
+                color: darkblue;
+                font-size: 20px;
+            }
+            h5 {
+                font-size: 15px;
+                color: #4a677d;
+            }
+    	    pre {
+        		background-color: white;
+        		border-color: black;
+        		border-style: solid;
+        		border-width: 1px;
+    	    }
+    	    .tip {
+    	        color: red;
+    	    }
         </style>
     </head>
     <body>
-        <h1>Welcome to PyJay!</h1>
+        <div style="background-color:black;">
+            <img src="PyJay logo.png" style="float:left; width:60px; padding-right:10px;">
+            <h1 style="font-size:50px;">Welcome to <i style="color:#d9e072;">PyJay</i>!</h1>
+        </div>
         <hr>
         <div>
             <h3>Table of Contents</h3>
@@ -32,6 +48,15 @@
                 <br>
                 <a href="#map_ex">Example</a>
             </details>
+            <br>
+            <details>
+                <summary>Button</summary>
+                <a href="#but_init">Arguments</a>
+                <br>
+                <a href="#but_fun">Functions</a>
+                <br>
+                <a href="#but_ex">Example</a>
+            </details>
         </div>
         <hr>
         <hr>
@@ -39,13 +64,13 @@
         <div>
             <a id="map_init"><h3>pyJay.map()</h3></a>
             <h5>Required arguments:</h5>
-            <p> pyBird.map(map_info)</p>
+            <p> pyJay.map(map_info)</p>
             <h5>Optional arguments:</h5>
             <p>pyJay.map(map_info,collider,map_x,map_y,extension)</p>
             <h5>Syntax:</h5>
             <p>
                 <b>map_info: (str): </b>
-                <br>- A path to a ‘.txt’ file containing the information for loading the map
+                <br>- A path to a '.txt' file containing the information for loading the map
                 <br><b>collider: (bool): </b>
                 <br>- Allows you to get hitboxes from the map tiles (default False)
                 <br><b>map_x: (int): </b>
@@ -53,42 +78,211 @@
                 <br><b>map_y: (int): </b>
                 <br>- Starting position of the map on the y-axis (default 0)
                 <br><b>extension: (str): </b>
-                <br>- The extension of your images (default ‘.png’)
+                <br>- The extension of your images (default '.png')
             </p>
             <hr>
             <a id="map_fun"><h3>pyJay.map() functions</h3></a>
-            <h5>display(surface)</h5>
+            <h5>display(surface,display_box)</h5>
             <p>Displays the map to the surface you put into the surface argument. Does not display if you set collider to True.</p>
+            <p>display_box is a rect around the screen. PyJay will only draw images that are within the display box to reduce lag.</p>
             <h5>move(x,y)</h5>
             <p>Moves the entire map by the number of pixels specified in the x-axis and the y-axis</p>
             <h5>collide()</h5>
             <p>Returns a list of rects that you can use as hitboxes to collide with. Only works when collider is set to True</p>
-	    <hr>
-	    <a id="map_other"><h3>What else to do</h3></a>
-	    <p>Each map will need a map data file. This will be a ‘.txt’ file and contain four (4) lines of text. The first two lines are paths (str) and the last two are numbers (int).</p>
-	    <pre>
-		path/to/image_set/folder
-		path/to/map_layout/file.txt
-		tile_size
-		scale
-	    </pre>
-	    <p>
-                <b>path/to/image_set/folder</b>
-		<br>- This will be a path to a folder containing all the images you need for that map.
-		<br><b>path/to/map_layout/file</b>
-		<br>- This will be a path to the layout of your map. This file needs to follow a few rules as well.
-		<br><b>map_layout rules:</b>
-		<br>- Each character corresponds to an image name in the path/to/image_set/folder (ex: ‘1’ on the map will display ‘1.png’)
-		<br>- Each tile may only correspond to ONE character in the map_layout
-		<br>- You cannot use the 0 character. 
-		<br>- The 0 character will display a blank tile.
-		<br><b>tile_size</b>
-		<br>- This is a number (int) that represents the size of the image. (ex: A 32x32 image will be a value of 32 in this line)
-		<br><b>scale</b>
-		<br>- This will scale all tiles by multiplying the image size by this amount (ex: 1 will keep it the same size, and 2 will double the size)
+            <hr>
+            <a id="map_other"><h3>What else to do</h3></a>
+            <p>Each map will need a map data file. This will be a '.txt' file and contain four (4) lines of text. The first two lines are paths (str) and the last two are numbers (int).</p>
+    	    <pre>
+path/to/image_set/folder
+path/to/map_layout/file.txt
+tile_size
+scale
+    	    </pre>
+    	    <p>
+            <b>path/to/image_set/folder</b>
+    		<br>- This will be a path to a folder containing all the images you need for that map.
+    		<br><b>path/to/map_layout/file</b>
+    		<br>- This will be a path to the layout of your map. This file needs to follow a few rules as well.
+    		<br><b>map_layout rules:</b>
+    		<br>- Each character corresponds to an image name in the path/to/image_set/folder (ex: '1' on the map will display '1.png')
+    		<br>- Each tile may only correspond to ONE character in the map_layout
+    		<br>- You cannot use the 0 character. 
+    		<br>- The 0 character will display a blank tile.
+    		<br><b>tile_size</b>
+    		<br>- This is a number (int) that represents the size of the image. (ex: A 32x32 image will be a value of 32 in this line)
+    		<br><b>scale</b>
+    		<br>- This will scale all tiles by multiplying the image size by this amount (ex: 1 will keep it the same size, and 2 will double the size)
             </p>
-	    <p>Each map will also need a <em>map_layout</em> file. This will be a ‘.txt’ file and be the “key” that pyJay uses. Make each number correspond to an image tile. </p>
-	    <p>When collider is set to True, every tile that doesn’t have a value of 0 will create a hitbox. </p>
+	        <p>Each map will also need a <em>map_layout</em> file. This will be a '.txt' file and be the "key" that pyJay uses. Make each number correspond to an image tile. </p>
+	        <p>When <em>collider</em> is set to True, every tile that doesn't have a value of 0 will create a hitbox. </p>
+	        <pre>
+1222223
+4FFFFF5
+4FFFFF5
+6777778
+	       </pre>
+	       <hr>
+	       <a id='map_ex'><h3>Example</h3></a>
+	       <p>File system:</p>
+	       <pre>
+-> root
+	main.py
+	pyJay.py
+	-> img
+		-> basement
+			1.png
+			2.png
+			3.png
+		-> floor_one
+			A.jpg
+			B.jpg
+			C.jpg
+	-> map_data
+		basement_data.txt
+		floor_one_data.txt
+	-> map_layouts
+		basement.txt
+		floor_one.txt
+	       </pre>
+	       <p>main.py</p>
+	       <pre>
+import pygame
+
+#Don't forget to import pyJay!
+import pyJay
+
+#Pygame setup
+pygame.init()
+screen = pygame.display.set_mode((700,700))
+clock = pygame.time.Clock()
+
+#Define two maps using pyJay
+#This one just uses the defaults
+basement = pyJay.map('map_data/basement_data.txt')
+
+#This one uses '.jpg' images, so we have to pass all the arguments
+floor_one = pyJay.map('map_data/floor_one.txt',False,0,0,'.jpg')
+
+#Game loop
+while True:
+	screen.fill((0,0,0))
+	
+	#Make display box around entire screen
+	display_box = pygame.Rect((0,0),(screen.get_width(),screen.get_height()))
+	
+	#Display the basement map
+	basement.display(screen,display_box)
+	
+	for event in pygame.event.get():
+		if event.type == pygame.KEYDOWN:
+			#Move the map when the arrow keys are pressed
+			if event.key == pygame.K_UP:
+				basement.move(0,-5)
+			if event.key == pygame.K_DOWN:
+				basement.move(0,5)
+			if event.key == pygame.K_LEFT:
+				basement.move(-5,0)
+			if event.key == pygame.K_RIGHT:
+				basement.move(5,0)
+	
+	pygame.display.flip()
+	clock.tick(60)
+	       </pre>
+	       <p>basement_data.txt</p>
+	       <pre>
+img/basement/
+map_layouts/basement.txt
+32
+2
+	       </pre>
+	       <p>floor_one_data.txt</p>
+	       <pre>
+img/floor_one/
+map_layouts/floor_one.txt
+16
+4
+           </pre>
+           <p>basement.txt</p>
+           <pre>
+11111
+12221
+12021
+12221
+11311
+           </pre>
+           <p>floor_one.txt</p>
+           <pre>
+AAAAA
+ABBBA
+AB0BA
+ABBBA
+AACAA
+           </pre>
+        </div>
+        <hr>
+        <hr>
+        <hr>
+        <div>
+            <a id="but_init"><h3>pyJay.button()</h3></a>
+            <h5>Required arguments:</h5>
+            <p> pyJay.button(x,y,text)</p>
+            <h5>Syntax:</h5>
+            <p>
+                <b>x: (int):</b>
+                <br>- The x location for the center of the button
+                <br><b>y: (int): </b>
+                <br>- The y location for the center of the button
+                <br><b>text: (str): </b>
+                <br>- The text the button displays
+            </p>
+            
+            <hr>
+            <a id="but_fun"><h3>pyJay.button() functions</h3></a>
+            <h5>display(surface)</h5>
+            <p>Displays the button to the surface you put into the surface argument</p>
+            <h5>get_click(mouse_position)</h5>
+            <p>Returns True if the mouse_position (tuple) is colliding with the button.</p>
+            <p class="tip">TIP: Pass pygame.mouse.get_pos() into the mouse_position argument</p>
+            
+            <hr>
+            <a id="but_ex"><h3>Example</h3></a>
+            <p>File system:</p>
+            <pre>
+-> root
+	main.py
+	pyJay.py
+	        </pre>
+            <p>main.py</p>
+            <pre>
+import pygame
+#Don't forget to import pyJay!
+import pyJay
+
+#Pygame setup
+pygame.init()
+screen = pygame.display.set_mode((700,700))
+clock = pygame.time.Clock()
+
+#Define a button using pyJay
+exit_button = pyJay.button(350,350,'Exit Game')
+
+#Game loop
+while True:
+	screen.fill((0,0,0))
+	
+	#Display the button to the screen
+	exit_button.display(screen)
+	
+	for event in pygame.event.get():
+		if event.type == pygame.MOUSEBUTTONDOWN:
+			#Check to see if button was clicked
+			if exit_button.get_click(pygame.mouse.get_pos()):
+				pygame.quit()
+				sys.exit()
+	
+	pygame.display.flip()
+	clock.tick(60)
+	    </pre>
         </div>
     </body>
 </html>

@@ -2,13 +2,14 @@
 <html>
     <head>
         <title>PyJay Docs</title>
-        <link rel="icon" type="image/x-icon" href="PyJay logo.png">
+        <link rel="icon" type="image/x-icon" href="pyJay.png">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
         <style>
             body {
                 background-color: #b3dbc3;
             }
             h1 {
-                font-family: 'Brush Script MT', cursive;
+                font-family: "Sofia", sans-serif;
                 color: blue;
             }
             h3 {
@@ -32,7 +33,7 @@
     </head>
     <body>
         <div style="background-color:black;">
-            <img src="PyJay logo.png" style="float:left; width:60px; padding-right:10px;">
+            <img src="pyJay.png" style="float:left; width:60px; padding-right:10px;">
             <h1 style="font-size:50px;">Welcome to <i style="color:#d9e072;">PyJay</i>!</h1>
         </div>
         <hr>
@@ -56,6 +57,15 @@
                 <a href="#but_fun">Functions</a>
                 <br>
                 <a href="#but_ex">Example</a>
+            </details>
+            <br>
+            <details>
+                <summary>Particle</summary>
+                <a href="#par_init">Arguments</a>
+                <br>
+                <a href="#par_fun">Functions</a>
+                <br>
+                <a href="#par_ex">Example</a>
             </details>
         </div>
         <hr>
@@ -282,7 +292,92 @@ while True:
 	
 	pygame.display.flip()
 	clock.tick(60)
-	    </pre>
+	        </pre>
         </div>
+        <hr>
+        <hr>
+        <hr>
+        <div>
+            <a id="par_init"><h3>pyJay.particle()</h3></a>
+            <h5>Required arguments:</h5>
+            <p>pyJay.particle(startX,startY,color,size,speed)</p>
+            <h5>Optional arguments:</h5>
+            <p>pyJay.particle(startX,startY,color,size,speed,lifetime)</p>
+            <h5>Syntax:</h5>
+            <p>
+                <b>startX: (int):</b>
+                <br>- The x location the particles emmit from
+                <br><b>startY: (int):</b>
+                <br>- The y location the partciles emmit from
+                <br><b>color: (tuple):</b>
+                <br>- RGB value of the particle color
+                <br><b>size: (int):</b>
+                <br>- The size (in pixels) of each particle
+                <br><b>speed: (int):</b>
+                <br>- How fast (in pixels per frame) the particle moves
+                <br><b>lifetime: (int):</b>
+                <br>- How long (in frames) the particles may last up to (Default 60)
+            </p>
+            <hr>
+            <a id="par_fun"><h3>pyJay.particle() functions</h3></a>
+            <h5>move()</h5>
+            <p>Moves the particles. Direction is automatically calculated</p>
+            <h5>lifetime_check()</h5>
+            <p>Returns <em>True</em> if a particle's lifetime is over</p>
+            <h5>display(screen)</h5>
+            <p>Displays the particle to the surface passed</p>
+            <hr>
+            <a id="par_ex"><h3>Example:</h3></a>
+            <p>File system:</p>
+            <pre>
+-> root
+	main.py
+	pyJay.py
+	        </pre>
+            <p>main.py</p>
+            <pre>
+import pygame
+#Don't forget to import pyJay!
+import pyJay
+
+#Pygame setup
+pygame.init()
+screen = pygame.display.set_mode((700,700))
+clock = pygame.time.Clock()
+
+#Make a list containing multiple particles to make a particle effect!
+particles =  []
+for i in range(0,20):
+	par = pyJay.particle(50,50,(255,255,0),5,2)
+	particles.append(par)
+
+#Game loop
+while True:
+	screen.fill((0,0,0))
+	
+	#Display the button to the screen
+	exit_button.display(screen)
+	
+	for particle in particles:
+		#Move every particle
+		particle.move()
+		#Display every parrticle
+		particle.display(screen)
+		#Delete particle if it's lifetime is over
+		if particle.lifetime_check():
+			particles.remove(particle)
+
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			pygame.quit()
+			sys.exit()
+	
+	pygame.display.flip()
+	clock.tick(60)
+	        </pre>
+        </div>
+        <hr>
+        <hr>
+        <hr>
     </body>
 </html>

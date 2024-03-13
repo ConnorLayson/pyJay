@@ -185,14 +185,14 @@ class animation:
         screen.blit(self.image,(x,y))
 
 class announcement:
-    def __init__(self,text,img,color,screen):
+    def __init__(self,text,img,color,font,screen):
         self.text = text
         self.img = img
         self.color = color
         self.screen = screen
         self.img = pygame.image.load(img)
         self.img = pygame.transform.scale(self.img,(300,100))
-        self.font = pygame.font.Font(None,50)
+        self.font = font
         self.text_load = self.font.render(self.text, True, self.color)
         self.img_x = self.screen.get_width()+(self.img.get_width()/2)
         self.img_y = self.screen.get_height()/2

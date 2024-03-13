@@ -3,13 +3,15 @@
     <head>
         <title>PyJay Docs</title>
         <link rel="icon" type="image/x-icon" href="pyJay.png">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Damion&display=swap" rel="stylesheet">
         <style>
             body {
                 background-color: #b3dbc3;
             }
             h1 {
-                font-family: "Sofia", sans-serif;
+                font-family: "Damion", cursive;
                 color: blue;
             }
             h3 {
@@ -66,6 +68,24 @@
                 <a href="#par_fun">Functions</a>
                 <br>
                 <a href="#par_ex">Example</a>
+            </details>
+            <br>
+            <details>
+                <summary>Announcement</summary>
+                <a href="#ann_init">Arguments</a>
+                <br>
+                <a href="#ann_fun">Functions</a>
+                <br>
+                <a href="#ann_ex">Example</a>
+            </details>
+            <br>
+            <details>
+                <summary>Data management</summary>
+                <a href="#dat_init">Arguments</a>
+                <br>
+                <a href="#dat_fun">Functions</a>
+                <br>
+                <a href="#dat_ex">Example</a>
             </details>
         </div>
         <hr>
@@ -375,6 +395,164 @@ while True:
 	pygame.display.flip()
 	clock.tick(60)
 	        </pre>
+        </div>
+        <hr>
+        <hr>
+        <hr>
+        <div>
+            <a id="ann_init"><h3>pyJay.announcement()</h3></a>
+            <h5>Required arguments:</h5>
+            <p>pyJay.announcement(text,img,color,font,surface)</p>
+            <h5>Syntax:</h5>
+            <p>
+                <b>text: (str):</b>
+                <br>- The text that should display when the announcement is shown
+                <br><b>img: (str):</b>
+                <br>- A path to the image that should be displayed behind the text
+                <br><b>color: (tuple):</b>
+                <br>- A tuple containing RGB values for the text color
+                <br><b>font: (pygame object):</b>
+                <br>- A font that has been loaded with <em>pygame.font.Font()</em>
+                <br><b>surface: (pygame object):</b>
+                <br>- A pygame surface that the announcement will be displayed to
+            </p>
+            <hr>
+            <a id="ann_fun"><h3>pyJay.announcement() functions</h3></a>
+            <h5>announcement.display()</h5>
+	        <p>Display the announcement</p>
+            <h5>announcement.move()</h5>
+	        <p>Moves the announcement across the screen</p>
+            <h5>announcement.reset()</h5>
+            <p>Resets the announcement position</p>
+            <p class="tip">TIP: Use <em>if announcement_name.text_x >= screen.get_width():</em> to see if the announcement is over.</p>
+            <hr>
+            <a id="ann_ex"><h3>Example:</h3></a>
+            <p>File system:</p>
+            <pre>
+-> root
+	main.py
+	pyJay.py
+	-> img
+		->ui
+			banner.png
+            </pre>
+            <p>main.py</p>
+            <pre>
+import pygame
+#Don't forget to import pyJay!
+import pyJay
+
+#Pygame setup
+pygame.init()
+screen = pygame.display.set_mode((700,700))
+clock = pygame.time.Clock()
+font = (pygame.font.Font(None,50)
+
+#Define announcement
+level_up = elem.announcement('Level Up!','img/ui/banner.png',(0,255,0),font,screen)
+
+#Game loop
+while True:
+    screen.fill((0,0,0))
+    
+    if level_upping:
+        #move announcement
+        level_up.move()
+        #Display announcement
+        level_up.display()
+        #Reset when it goes off-screen
+        if level_up.text_x > screen.get_width():
+            level_upping = False
+            level_up.reset()
+    
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+    
+    pygame.display.flip()
+    clock.tick(60)
+            </pre>
+        </div>
+        <hr>
+        <hr>
+        <hr>
+        <div>
+            <a id="dat_init"><h3>pyJay.data_management()</h3></a>
+            <h5>Required arguments:</h5>
+            <p>pyJay.data_management(file_name)</p>
+            <h5>Syntax:</h5>
+            <p>
+                <b>file_name: (str):</b>
+                <br>- A path to the save file
+            </p>
+            <hr>
+            <a id="dat_fun"><h3>pyJay.data_management() functions</h3></a>
+            <h5>data_management.save(data)</h5>
+            <p>Saves a dictionary (data) to the save file</p>
+            <h5>data_management.load()</h5>
+            <p>Returns the data in the save file as a dictionary</p>
+            <hr>
+            <a id="dat_ex"><h3>Example:</h3></a>
+            <p>File system:</p>
+            <pre>
+-> root
+	main.py
+	pyJay.py
+	-> saves
+		save_file.json
+            </pre>
+            <p>main.py</p>
+            <pre>
+import pygame
+#Don't forget to import pyJay!
+import pyJay
+
+#Pygame setup
+pygame.init()
+screen = pygame.display.set_mode((700,700))
+clock = pygame.time.Clock()
+
+#Define a save object
+save_obj = pyJay.data_management('saves/save_file')
+
+#Make a dictionary with defaults (In case a save file isn't found)
+player_data = {
+	'x_pos': 100,
+	'y_pos': 300,
+	'skin': 'tennis_steve'
+}
+
+#Replace dictionary with data from the save file
+try:
+player_data = save_obj.load()
+except:
+	#If something fails, return an error and continue
+	print('Save file not found')
+	print('Loading with defaults')
+
+#Game loop
+while True:
+	screen.fill((0,0,0))
+	
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			pygame.quit()
+			sys.exit()
+			#Save data when quitting game
+			save_obj.save(player_data)
+	
+	pygame.display.flip()
+	clock.tick(60)
+            </pre>
+            <p>save_file.json</p>
+            <pre>
+{
+	"x_pos": 150,
+	"y_pos": 200,
+	"skin": "tuxedo_steve"
+}
+            </pre>
         </div>
         <hr>
         <hr>

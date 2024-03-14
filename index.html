@@ -20,7 +20,7 @@
             }
             h5 {
                 font-size: 15px;
-                color: #4a677d;
+                color: #4467dd;
             }
     	    pre {
         		background-color: white;
@@ -30,6 +30,12 @@
     	    }
     	    .tip {
     	        color: red;
+    	    }
+    	    #border {
+    	        border: 1px solid darkblue;
+    	        width: 100%;
+    	        height: 10px;
+    	        background-color: #d9e072;
     	    }
         </style>
     </head>
@@ -53,6 +59,17 @@
             </details>
             <br>
             <details>
+                <summary>Interactable</summary>
+                <a href="#int_init">Arguments</a>
+                <br>
+                <a href="#int_fun">Functions</a>
+                <br>
+                <a href="#int_other">Other requirements</a>
+                <br>
+                <a href="#int_ex">Example</a>
+            </details>
+            <br>
+            <details>
                 <summary>Button</summary>
                 <a href="#but_init">Arguments</a>
                 <br>
@@ -68,6 +85,15 @@
                 <a href="#par_fun">Functions</a>
                 <br>
                 <a href="#par_ex">Example</a>
+            </details>
+            <br>
+            <details>
+                <summary>Animation</summary>
+                <a href="#anim_init">Arguments</a>
+                <br>
+                <a href="#anim_fun">Functions</a>
+                <br>
+                <a href="#anim_ex">Example</a>
             </details>
             <br>
             <details>
@@ -89,7 +115,7 @@
             </details>
         </div>
         <hr>
-        <hr>
+        <div id="border"></div>
         <hr>
         <div>
             <a id="map_init"><h3>pyJay.map()</h3></a>
@@ -123,6 +149,7 @@
             <a id="map_other"><h3>What else to do</h3></a>
             <p>Each map will need a map data file. This will be a '.txt' file and contain four (4) lines of text. The first two lines are paths (str) and the last two are numbers (int).</p>
     	    <pre>
+    	        
 path/to/image_set/folder
 path/to/map_layout/file.txt
 tile_size
@@ -133,7 +160,7 @@ scale
     		<br>- This will be a path to a folder containing all the images you need for that map.
     		<br><b>path/to/map_layout/file</b>
     		<br>- This will be a path to the layout of your map. This file needs to follow a few rules as well.
-    		<br><b>map_layout rules:</b>
+    		<br><b><span class="tip">map_layout rules:</span></b>
     		<br>- Each character corresponds to an image name in the path/to/image_set/folder (ex: '1' on the map will display '1.png')
     		<br>- Each tile may only correspond to ONE character in the map_layout
     		<br>- You cannot use the 0 character. 
@@ -146,15 +173,17 @@ scale
 	        <p>Each map will also need a <em>map_layout</em> file. This will be a '.txt' file and be the "key" that pyJay uses. Make each number correspond to an image tile. </p>
 	        <p>When <em>collider</em> is set to True, every tile that doesn't have a value of 0 will create a hitbox. </p>
 	        <pre>
+	            
 1222223
 4FFFFF5
 4FFFFF5
 6777778
 	       </pre>
 	       <hr>
-	       <a id='map_ex'><h3>Example</h3></a>
+	       <a id='map_ex'><h3>Example:</h3></a>
 	       <p>File system:</p>
 	       <pre>
+	           
 -> root
 	main.py
 	pyJay.py
@@ -176,7 +205,8 @@ scale
 	       </pre>
 	       <p>main.py</p>
 	       <pre>
-import pygame
+	           
+import pygame, sys
 
 #Don't forget to import pyJay!
 import pyJay
@@ -220,6 +250,7 @@ while True:
 	       </pre>
 	       <p>basement_data.txt</p>
 	       <pre>
+	           
 img/basement/
 map_layouts/basement.txt
 32
@@ -227,6 +258,7 @@ map_layouts/basement.txt
 	       </pre>
 	       <p>floor_one_data.txt</p>
 	       <pre>
+	           
 img/floor_one/
 map_layouts/floor_one.txt
 16
@@ -234,6 +266,7 @@ map_layouts/floor_one.txt
            </pre>
            <p>basement.txt</p>
            <pre>
+               
 11111
 12221
 12021
@@ -242,6 +275,7 @@ map_layouts/floor_one.txt
            </pre>
            <p>floor_one.txt</p>
            <pre>
+               
 AAAAA
 ABBBA
 AB0BA
@@ -250,7 +284,150 @@ AACAA
            </pre>
         </div>
         <hr>
+        <div id="border"></div>
         <hr>
+        <div>
+            <a id="int_init"><h3>pyJay.interactable()</h3></a>
+            <h5>Required arguments:</h5>
+            <p>pyJay.interactable(file)</p>
+            <h5>Syntax:</h5>
+            <p>
+                <b>file: (str):</b>
+                <br>- A path to the configuration file
+            </p>
+            <hr>
+            <a id="int_fun"><h3>pyJay.interactable() functions</h3></a>
+            <h5>collide(plRect)</h5>
+            <p>Check to see if the plRect (pygame Rect object) collides with an interactable tile</p>
+            <h5>move(x,y)</h5>
+            <p>Move all interactables along the x and y axis (in pixels)</p>
+            <h5>display(screen)</h5>
+            <p>Draw the hitboxes to the suface passed through <em>screen</em></p>
+            <hr>
+            <a id="int_other"><h3>What else to do</h3></a>
+            <p>Instead of individually defining hitboxes in the space, PyJay uses something simmilar to the way maps are made. You will need a data file and a layout file</p>
+            <p>The configuration file will need to be a .json and contain the following things:</p>
+            <pre>
+                
+{
+    "objects": [
+        {
+            "key": "1",
+            "function": "function_when_collide(1)"
+        },
+        {
+            "key": "2",
+            "function": "function_when_collide(2)"
+        }
+    ],
+    "map_data": {
+        "file": "path/to/map_layout.txt",
+        "width": tile_width,
+        "height": tile_height
+    }
+}
+            </pre>
+            <p>
+                <b>objects</b>
+                <br>This is a list containing JSON objects to controll interactable tiles
+                <br><b>- - key</b>
+                <br>- - - This is what character on the layout file does what function
+                <br><b>- - function</b>
+                <br>- - - This is what will run when collided with the <em>key</em> tile. This should be a Python function (which is defined in your main.py)
+                <br>
+                <br><b>map_data</b>
+                <br>This contains information about how to display your interactables
+                <br><b>- - file</b>
+                <br>- - - This is a path to your map layout file
+                <br><b>- - width</b>
+                <br>- - - This is the width of each tile
+                <br><b>- - height</b>
+                <br>- - - This is the height of each tile
+            </p>
+            <p>You will also need to make a map layout. This follows the same rules as the <a href="#map_other">pyJay.map()</a> rules</p>
+            <hr>
+            <a id="int_ex"><h3>Example:</h3></a>
+            <p>File system:</p>
+            <pre>
+                
+-> root
+    main.py
+    pyJay.py
+    -> layouts
+        map_layout.txt
+    -> interactable
+        config.json
+            </pre>
+            <p>main.py</p>
+            <pre>
+                
+import pygame, sys
+#Don't forget to import pyJay!
+import pyJay
+
+#pygame setup
+pygame.init()
+screen = pygame.display.set_mode((700,700))
+clock = pygame.time.Clock()
+
+#define an interactable map
+interact = pyJay.interactable('interactable/config.json')
+
+#Define something to happen when you hit an interactable
+def quit():
+    pygame.quit()
+
+#game loop
+while True:
+    screen.fill((0,0,0))
+	
+	#display hitboxes for debugging
+	interact.display(screen)
+	
+	for event in pygame.event.get():
+		if event.type == pygame.KEYDOWN:
+			#Move the map when the arrow keys are pressed
+			if event.key == pygame.K_UP:
+				interact.move(0,-5)
+			if event.key == pygame.K_DOWN:
+				interact.move(0,5)
+			if event.key == pygame.K_LEFT:
+				interact.move(-5,0)
+			if event.key == pygame.K_RIGHT:
+				interact.move(5,0)
+	
+	pygame.display.flip()
+	clock.tick(60)
+            </pre>
+            <p>config.json</p>
+            <pre>
+
+{
+    "objects": [
+        {
+            "key": "1",
+            "function": "quit()"
+        }
+    ],
+    "map_data": {
+        "file": "layouts/map_layout.txt",
+        "width": 64,
+        "height": 64
+    }
+}
+            </pre>
+            <p>map_layout.txt</p>
+            <pre>
+                
+0000000
+0000000
+0001000
+0000000
+0000000
+            </pre>
+        </div>
+        <hr>
+        <div id="border"></div>
         <hr>
         <div>
             <a id="but_init"><h3>pyJay.button()</h3></a>
@@ -275,16 +452,18 @@ AACAA
             <p class="tip">TIP: Pass pygame.mouse.get_pos() into the mouse_position argument</p>
             
             <hr>
-            <a id="but_ex"><h3>Example</h3></a>
+            <a id="but_ex"><h3>Example:</h3></a>
             <p>File system:</p>
             <pre>
+                
 -> root
 	main.py
 	pyJay.py
 	        </pre>
             <p>main.py</p>
             <pre>
-import pygame
+                
+import pygame, sys
 #Don't forget to import pyJay!
 import pyJay
 
@@ -315,7 +494,7 @@ while True:
 	        </pre>
         </div>
         <hr>
-        <hr>
+        <div id="border"></div>
         <hr>
         <div>
             <a id="par_init"><h3>pyJay.particle()</h3></a>
@@ -350,13 +529,15 @@ while True:
             <a id="par_ex"><h3>Example:</h3></a>
             <p>File system:</p>
             <pre>
+                
 -> root
 	main.py
 	pyJay.py
 	        </pre>
             <p>main.py</p>
             <pre>
-import pygame
+                
+import pygame, sys
 #Don't forget to import pyJay!
 import pyJay
 
@@ -397,7 +578,82 @@ while True:
 	        </pre>
         </div>
         <hr>
+        <div id="border"></div>
         <hr>
+        <div>
+            <a id="anim_init"><h3>pyJay.animation()</h3></a>
+            <h5>Required argments:</h5>
+            <p>pyJay.animation(folder,noOfFrames)</p>
+            <h5>Optional arguments:</h5>
+            <p>pyJay.animation(folder,noOfFrames,speed=1,filetype='.png')</p>
+            <h5>Syntax:</h5>
+            <p>
+                <b>folder: (str):</b>
+                <br>- Path to a folder with all your frames
+                <br><b>noOfFrames: (int):</b>
+                <br>- The number of frames in the animation
+                <br><b>speed: (int):</b>
+                <br>- How many game frames it takes to update the animation frame (Default 1)
+                <br><b>filetype: (str):</b>
+                <br>- The filetype of the images (Default '.png')
+            </p>
+            <p class="tip">NOTE: In your folder, name the frames as the frame number. Start with Zero (0)</p>
+            <hr>
+            <a id="anim_fun"><h3>pyJay.animation() functions</h3></a>
+            <h5>slide()</h5>
+            <p>"Slides" the animation to the next frame</p>
+            <h5>display(screen,x,y)</h5>
+            <p>Displays the current frame to the surface passed to the x and y coordinates</p>
+            <hr>
+            <a id="anim_ex"><h3>Example:</h3></a>
+            <p>File system:</p>
+            <pre>
+                
+-> root
+    main.py
+    -> player_idle
+        0.png
+        1.png
+        3.png
+        4.png
+        5.png
+        6.png
+            </pre>
+            <p>main.py</p>
+            <pre>
+                
+import pygame, sys
+#Don't forget to import pyJay!
+import pyJay
+
+#Pygame setup
+pygame.init()
+screen = pygame.display.set_mode((700,700))
+clock = pygame.time.Clock()
+font = (pygame.font.Font(None,50)
+
+#Define your animation
+idle = pyJay.animation('player_idle',7,30)
+
+#Game loop
+while True:
+    screen.fill((0,0,0))
+    
+    #Update the animation, then display it
+    idle.slide()
+    idle.display(screen,50,50)
+    
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+    
+    pygame.display.flip()
+    clock.tick(60)
+            </pre>
+        </div>
+        <hr>
+        <div id="border"></div>
         <hr>
         <div>
             <a id="ann_init"><h3>pyJay.announcement()</h3></a>
@@ -429,6 +685,7 @@ while True:
             <a id="ann_ex"><h3>Example:</h3></a>
             <p>File system:</p>
             <pre>
+                
 -> root
 	main.py
 	pyJay.py
@@ -438,7 +695,8 @@ while True:
             </pre>
             <p>main.py</p>
             <pre>
-import pygame
+                
+import pygame, sys
 #Don't forget to import pyJay!
 import pyJay
 
@@ -475,7 +733,7 @@ while True:
             </pre>
         </div>
         <hr>
-        <hr>
+        <div id="border"></div>
         <hr>
         <div>
             <a id="dat_init"><h3>pyJay.data_management()</h3></a>
@@ -496,6 +754,7 @@ while True:
             <a id="dat_ex"><h3>Example:</h3></a>
             <p>File system:</p>
             <pre>
+                
 -> root
 	main.py
 	pyJay.py
@@ -504,7 +763,8 @@ while True:
             </pre>
             <p>main.py</p>
             <pre>
-import pygame
+                
+import pygame, sys
 #Don't forget to import pyJay!
 import pyJay
 
@@ -547,6 +807,7 @@ while True:
             </pre>
             <p>save_file.json</p>
             <pre>
+                
 {
 	"x_pos": 150,
 	"y_pos": 200,
@@ -555,7 +816,7 @@ while True:
             </pre>
         </div>
         <hr>
-        <hr>
+        <div id="border"></div>
         <hr>
     </body>
 </html>

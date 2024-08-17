@@ -3,7 +3,7 @@ import random
 import json
 
 pygame.font.init()
-print('Thank you for installing the PyBird v.1.0 pygame engine! PyBird was made by Connor Layson.')
+print('Thank you for installing the PyJay v.1.0 pygame engine! PyJay was made by Connor Layson.')
 
 class map:
     def __init__(self,map_info,collider=False,map_x=0,map_y=0,extension='png'):
